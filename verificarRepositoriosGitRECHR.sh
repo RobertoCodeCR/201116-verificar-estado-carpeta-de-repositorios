@@ -89,15 +89,16 @@ do
 		fi
 
         echo -e " "
+		echo
         
 		cd ../
-	else
-        # Not a git repository
+	# else
+    #     # Not a git repository
 
-	    echo -en "\033[0;37m"
-    	echo "${f}"
-		echo "$no_git"
-	    echo -en "\033[0m"
+	#     echo -en "\033[0;37m"
+    # 	echo "${f}"
+	# 	echo "$no_git"
+	#     echo -en "\033[0m"
 	fi
-    echo
+    #echo
 done
