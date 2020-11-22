@@ -22,6 +22,16 @@ case $LANG in
         clean="nothing to commit"
         no_git="not a git repository"
         ;;
+	*)
+        check_modif="modificado"
+        message_modif="modificado"
+        check_untr="seguimiento"
+        message_untr="archivos sin seguimiento"
+        check_unpush="adelantada"
+        message_unpush="falta hacer push"
+        clean="nada a hacer commit"
+        no_git="no es un repositorio de git"
+    ;;
 esac
 
 dir="$1"
