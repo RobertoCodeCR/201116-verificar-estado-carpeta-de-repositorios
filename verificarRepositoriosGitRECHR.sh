@@ -59,47 +59,60 @@ do
 	# Check if directory is a git repository
 	if [ -d "$f/.git" ]
 	then
-        echo -en "\033[0;35m"
-	    echo "${f}"
-    	echo -en "\033[0m"
-		
-        mod=0
+        mod=0	
+		modificado=""
+		no_agregado=""
+		adelantado=""
 		cd $f
-
-		# Print branch
-        s=$(git status | head -n1)
-		echo -en "\033[0;36m${s:10}\033[0m "
 
 		# Check for modified files
 		if [ $(git status | grep "$check_modif" -c) -ne 0 ]
 		then
 			mod=1
-			echo -en "\033[0;93m$message_modif\033[0m "
+			modificado="\033[0;93m$message_modif\033[0m "
 		fi
 
 		# Check for untracked files
 		if [ $(git status | grep "$check_untr" -c) -ne 0 ]
 		then
 			mod=1
-			echo -en "\033[0;91m$message_untr\033[0m "
+			no_agregado="\033[0;91m$message_untr\033[0m "
 		fi
 
         # Check for unpushed changes
         if [ $(git status | grep "$check_unpush" -c) -ne 0 ]
         then
-            mod=1
-            echo -en "\033[0;92m$message_unpush\033[0m "
+			mod=1
+            adelantado="\033[0;92m$message_unpush\033[0m "
         fi
 
-
-		# Check if everything is peachy keen
-		if [ $mod -eq 0 ]
+		#Solo se muestra si la rama tiene cambios
+		if [ $mod -eq 1 ]
 		then
-			echo -en "$clean"
+			#Se imprime el nombre del directorio
+			echo -en "\033[0;35m"
+			echo "${f}"
+			echo -en "\033[0m"
+
+			# Se imprime la rama
+			s=$(git status | head -n1)
+			echo -en "\033[0;36m${s:10}\033[0m "
+
+			#Se imprime los estados
+			echo -en $modificado" "$no_agregado" "$adelantado
+
+			#Espacio entre carpetas
+			echo -e " "
+			echo
 		fi
 
-        echo -e " "
-		echo
+		# Check if everything is peachy keen
+		# if [ $mod -eq 0 ]
+		# then
+		# 	echo -en "$clean"
+		# fi
+
+
         
 		cd ../
 	# else
